@@ -1,0 +1,14 @@
+version: '3'
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql1
+    hostname: sql1
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Jadco0812@
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mysql:/var/opt/mssql/data
