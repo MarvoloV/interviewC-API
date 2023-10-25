@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ConfigModule } from '@nestjs/config';
 import { TokenModule } from './token/token.module';
+import { CommerceModule } from './commerce/commerce.module';
 
 @Module({
   imports: [
@@ -13,17 +14,18 @@ import { TokenModule } from './token/token.module';
       type: 'mssql',
       host: 'localhost',
       port: 1433,
-      database: 'TestDB',
+      database: 'DemoDB',
       username: 'sa',
       password: 'Jadco0812@',
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
       options: {
         encrypt: false,
-        trustServerCertificate: true, // change to true for local dev / self-signed certs
+        // trustServerCertificate: true, // change to true for local dev / self-signed certs
       },
     }),
     TokenModule,
+    CommerceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
