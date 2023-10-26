@@ -1,5 +1,4 @@
 import {
-  IsCreditCard,
   IsEmail,
   IsIn,
   IsNumberString,
@@ -9,10 +8,11 @@ import {
 import {
   IsAllowedEmailDomain,
   IsExpirationYear,
+  IsLuhnValid,
 } from '../utils/CustomValidator';
 export class CreateTokenDto {
   // @Length(13, 16)
-  @IsCreditCard()
+  @IsLuhnValid({ message: 'card_number is not valid' })
   card_number: number;
 
   @IsNumberString()
