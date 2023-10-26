@@ -5,4 +5,6 @@ export class Commerce {
   id: string;
   @Column('text')
   name: string;
+  @Column('text')
+  address: string;
 }

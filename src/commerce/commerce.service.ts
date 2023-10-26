@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
   UnauthorizedException,
@@ -49,13 +50,19 @@ export class CommerceService {
     }
     return commerce;
   }
-  // private handleDBExceptions(error: any) {
-  //   if (error.code === '23505') throw new BadRequestException(error.detail);
+  private handleDBExceptions(error: any) {
+    this.logger.error(error);
+    throw new InternalServerErrorException(
+      'Unexpected error, check server logs',
+    );
+  }
+  async deleteAllProducts() {
+    const query = this.commerceRepository.createQueryBuilder('commerce');
 
-  //   this.logger.error(error);
-  //   // console.log(error)
-  //   throw new InternalServerErrorException(
-  //     'Unexpected error, check server logs',
-  //   );
-  // }
+    try {
+      return await query.delete().where({}).execute();
+    } catch (error) {
+      this.handleDBExceptions(error);
+    }
+  }
 }

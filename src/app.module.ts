@@ -8,6 +8,7 @@ import { TokenModule } from './token/token.module';
 import { CommerceModule } from './commerce/commerce.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { redisStore } from 'cache-manager-redis-store';
     }),
     TokenModule,
     CommerceModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
