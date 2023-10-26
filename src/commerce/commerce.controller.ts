@@ -12,7 +12,10 @@ export class CommerceController {
   }
 
   @Get('')
-  findOne(@Headers('X-Comercio-ID') CommerceId: string) {
-    return this.commerceService.findOne(CommerceId);
+  findOne(
+    @Headers('X-Comercio-ID') CommerceId: string,
+    @Headers('Authorization') token: string,
+  ) {
+    return this.commerceService.findOne(CommerceId, token);
   }
 }

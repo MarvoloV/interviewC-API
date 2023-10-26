@@ -4,6 +4,7 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,8 +12,8 @@ import { Repository } from 'typeorm';
 import { Commerce } from './entities/commerce.entity';
 import { CreateCommerceDto } from './dto/create-commerce.dto';
 import { validate as isUUID } from 'uuid';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class CommerceService {
@@ -20,6 +21,7 @@ export class CommerceService {
   constructor(
     @InjectRepository(Commerce)
     private readonly commerceRepository: Repository<Commerce>,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
   async create(createCommerceDto: CreateCommerceDto) {
     try {
@@ -32,7 +34,12 @@ export class CommerceService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, token: string) {
+    const cardData = await this.cacheManager.get(token);
+
+    if (!cardData) {
+      throw new UnauthorizedException(`Unauthorizaed`);
+    }
     if (!isUUID(id)) {
       throw new BadRequestException(`Commerce with ${id} not valid`);
     }

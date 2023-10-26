@@ -7,17 +7,16 @@ import { Cache } from 'cache-manager';
 export class TokenService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
   async create(createTokenDto: CreateTokenDto) {
-    const caracteres =
+    const characters =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let token = '';
 
     for (let i = 0; i < 16; i++) {
-      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
-      token += caracteres.charAt(indiceAleatorio);
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      token += characters.charAt(randomIndex);
     }
     await this.cacheManager.set(token, createTokenDto);
-    const cachedItem = await this.cacheManager.get('cached_item');
-    console.log(cachedItem);
+
     return { token };
   }
 }
