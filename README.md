@@ -2,7 +2,16 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-# Teslo API
+# Cineplanet API
+
+#### Este proyecto consta de un sistema de validación de tarjeta de crédito y generación de tokens único. A continuación, se describen los componentes clave y los requisitos del sistema:
+
+- Generación de un Token
+- Consulta del comercio
+- Almacenamiento seguro
+- Tiempo de registro
+
+Para todo esto hemos utilizando como Backend NestJS, base de Datos MySQL Server y para la información CACHE Redis.
 
 ## 1. Clonar proyecto
 
@@ -51,6 +60,7 @@ Functions:
 	main:  http://localhost:7071/api/v2/{*segments}
 
 endpoints:
+  GET  - http://localhost:7071/api/v2/seed
   POST - http://localhost:7071/api/v2/token
   GET  - http://localhost:7071/api/v2/commerce
 
