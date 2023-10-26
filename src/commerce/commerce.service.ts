@@ -39,7 +39,7 @@ export class CommerceService {
     const cardData = await this.cacheManager.get(token);
 
     if (!cardData) {
-      throw new UnauthorizedException(`Unauthorizaed`);
+      throw new UnauthorizedException(`Unauthorized`);
     }
     if (!isUUID(id)) {
       throw new BadRequestException(`Commerce with ${id} not valid`);

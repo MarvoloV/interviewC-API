@@ -11,7 +11,7 @@ import {
   IsLuhnValid,
 } from '../utils/CustomValidator';
 export class CreateTokenDto {
-  // @Length(13, 16)
+  @Length(13, 16)
   @IsLuhnValid({ message: 'card_number is not valid' })
   card_number: number;
 

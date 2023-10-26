@@ -7,8 +7,11 @@ import { Commerce } from './entities/commerce.entity';
 import { Repository } from 'typeorm';
 
 describe('CommerceController', () => {
-  let controller: CommerceController;
-
+  let commerceController: CommerceController;
+  const mockCacheManager = {
+    set: jest.fn(),
+    get: jest.fn().mockReturnValue(true),
+  };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CommerceController],
@@ -18,14 +21,14 @@ describe('CommerceController', () => {
           provide: getRepositoryToken(Commerce),
           useClass: Repository,
         },
-        { provide: CACHE_MANAGER, useValue: {} },
+        { provide: CACHE_MANAGER, useValue: mockCacheManager },
       ],
     }).compile();
 
-    controller = module.get<CommerceController>(CommerceController);
+    commerceController = module.get<CommerceController>(CommerceController);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(commerceController).toBeDefined();
   }, 20000);
 });

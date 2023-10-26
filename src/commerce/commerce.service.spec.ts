@@ -26,5 +26,5 @@ describe('CommerceService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  }, 2000000);
+  }, 11000);
 });
