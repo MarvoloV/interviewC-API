@@ -13,12 +13,11 @@ services:
     hostname: sql1
     environment:
       ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: Jadco0812@
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
       MSSQL_PID: Express
     ports:
       - "1433:1433"
     volumes:
       - ./mysql:/var/opt/mssql/data
-volumes:
-  redis-data:
-    driver: ./redis
+
+

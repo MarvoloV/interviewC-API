@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TokenController } from './token.controller';
 import { TokenService } from './token.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 describe('TokenController', () => {
   let controller: TokenController;
@@ -8,7 +9,7 @@ describe('TokenController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TokenController],
-      providers: [TokenService],
+      providers: [TokenService, { provide: CACHE_MANAGER, useValue: {} }],
     }).compile();
 
     controller = module.get<TokenController>(TokenController);

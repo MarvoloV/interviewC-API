@@ -23,10 +23,10 @@ import { SeedModule } from './seed/seed.module';
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: 'localhost',
-      port: 1433,
-      database: 'DemoDB',
-      username: 'sa',
-      password: 'Jadco0812@',
+      port: +process.env.DB_PORT,
+      database: process.env.DB_NAME,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
       options: {
