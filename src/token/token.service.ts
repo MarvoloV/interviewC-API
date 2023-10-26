@@ -1,13 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateTokenDto } from './dto/create-token.dto';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class TokenService {
-  create(createTokenDto: CreateTokenDto) {
-    console.log(
-      '🚀 ~ file: token.service.ts:7 ~ TokenService ~ create ~ createTokenDto:',
-      createTokenDto,
-    );
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+  async create(createTokenDto: CreateTokenDto) {
     const caracteres =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let token = '';
@@ -16,6 +15,9 @@ export class TokenService {
       const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
       token += caracteres.charAt(indiceAleatorio);
     }
+    await this.cacheManager.set(token, createTokenDto);
+    const cachedItem = await this.cacheManager.get('cached_item');
+    console.log(cachedItem);
     return { token };
   }
 }

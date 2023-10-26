@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -10,6 +11,8 @@ import { Repository } from 'typeorm';
 import { Commerce } from './entities/commerce.entity';
 import { CreateCommerceDto } from './dto/create-commerce.dto';
 import { validate as isUUID } from 'uuid';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class CommerceService {
